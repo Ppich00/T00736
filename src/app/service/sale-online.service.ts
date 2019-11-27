@@ -41,4 +41,7 @@ export class SaleOnlineService {
   deleteOrder(id) {
     return this.http.delete('/api/orders/' + id);
   }
+  getOrderByID(id: string) {
+    return this.http.get<Order>('/api/orders/' + id);
+  }
 }

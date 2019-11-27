@@ -2,8 +2,6 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SaleOnlineService } from 'src/app/service/sale-online.service';
 import { Product } from 'src/app/models/product';
-import { Customer } from 'src/app/models/customer';
-import { Order } from 'src/app/models/order';
 
 
 @Component({
@@ -26,17 +24,17 @@ export class SaleOnlineComponent implements OnInit {
     });
     this.service.getProduct().subscribe(res => {
       this.productList = res;
-      console.log(res);
+      // console.log(res);
     });
   }
   onSearch(form: FormGroup) {
     let condition = form.getRawValue();
-    console.log(condition);
+    // console.log(condition);
     condition = { ...condition, ...condition.productId };
-    console.log(condition);
+    // console.log(condition);
 
     this.service.getOrder(condition).subscribe(res => {
-      console.log(res);
+      // console.log(res);
 
       this.orderList = res;
     });

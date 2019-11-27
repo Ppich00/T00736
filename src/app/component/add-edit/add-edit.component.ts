@@ -18,7 +18,6 @@ export class AddEditComponent implements OnInit {
   constructor(public service: SaleOnlineService) { }
 
   ngOnInit() {
-    console.log();
 
     this.orderForm = new FormGroup({
       orderId: new FormControl(0),
@@ -33,16 +32,19 @@ export class AddEditComponent implements OnInit {
     this.service.getCustomer().subscribe(res => {
 
       this.customerList = res;
-      console.log(res);
+      // console.log(res);
     })
     if (this.service.order) {
-      const orderService = this.service.order;
-      console.log(orderService);
+      this.service.getOrderByID(this.service.order.orderId.toString()).subscribe(res => {
+        // console.log(res);
+        this.orderForm.patchValue({
+          ...res, orderDate: new Date
+            (res.orderDate), status: res.status === "Y" ? true : false
+        })
+      });
+      // console.log(orderService);
 
-      this.orderForm.patchValue({
-        ...orderService, orderDate: new Date
-          (orderService.orderDate), status: orderService.status === "Y" ? true : false
-      })
+
     }
   }
   onSumit(form: FormGroup) {
@@ -51,13 +53,15 @@ export class AddEditComponent implements OnInit {
       let data = form.getRawValue();
       data = { ...data, status: data.status ? "Y" : "N" }
       if (this.service.order) {
-        console.log(data);
+        // console.log(data);
 
-        this.service.editOrder(data).subscribe(res => console.log(res)
+        this.service.editOrder(data).subscribe(res => {
+          // console.log(res)
+        }
         );
       } else {
         this.service.addOrder(data).subscribe(res => {
-          console.log(res);
+          // console.log(res);
         });
       }
 
