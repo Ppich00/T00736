@@ -15,7 +15,6 @@ export class SaleOnlineService {
   getOrder(condition: any) {
     this.removeEmpty(condition);
     const params = new HttpParams({ fromObject: condition });
-    console.log(condition);
 
     return this.http
       .get<Order[]>('/api/orders/queryOrderByCondition', {

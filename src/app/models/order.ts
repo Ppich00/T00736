@@ -1,4 +1,5 @@
 import { Customer } from './customer';
+import { Product } from './product';
 
 export interface Order {
     orderId: number;
@@ -7,5 +8,5 @@ export interface Order {
     total: number;
     orderDate: Date;
     status: string;
-
+    product: Product;
 }

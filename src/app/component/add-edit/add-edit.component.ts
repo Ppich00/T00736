@@ -28,19 +28,29 @@ export class AddEditComponent implements OnInit {
       status: new FormControl(''),
       total: new FormControl('')
     })
-    this.service.getProduct().subscribe(res => this.product = res);
+    this.service.getProduct().subscribe(res => this.product = res.map(val => {
+      return {
+        ...val, productDesc: null
+      }
+
+    }));
     this.service.getCustomer().subscribe(res => {
 
-      this.customerList = res;
+      this.customerList = res.map(val => {
+        return { ...val, address: null, email: null, tel: null };
+      });
       // console.log(res);
     })
     if (this.service.order) {
       this.service.getOrderByID(this.service.order.orderId.toString()).subscribe(res => {
-        // console.log(res);
+        // console.log(res.customer);
         this.orderForm.patchValue({
           ...res, orderDate: new Date
             (res.orderDate), status: res.status === "Y" ? true : false
         })
+        // this.orderForm.get('product').setValue(res.product);
+        // this.orderForm.get('customer').setValue(this.service.order.customer);
+
       });
       // console.log(orderService);
 
