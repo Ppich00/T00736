@@ -27,8 +27,9 @@ export class ResultSearchComponent implements OnInit {
     // console.log(index);
     console.log(id);
 
-    this.service.deleteOrder(id).subscribe(res => {
-      this.orderList.splice(id, 1)
+    this.service.deleteOrder(id).subscribe(() => {
+      window.alert('ลบข้อมูลสำเร็จ');
+      this.orderList.splice(id, 1);
     })
   }
   goToadd() {

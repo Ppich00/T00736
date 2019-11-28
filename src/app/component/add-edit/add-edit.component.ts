@@ -28,12 +28,18 @@ export class AddEditComponent implements OnInit {
       status: new FormControl(''),
       total: new FormControl('')
     })
-    this.service.getProduct().subscribe(res => this.product = res.map(val => {
-      return {
-        ...val, productDesc: null
-      }
+    this.service.getProduct().subscribe(res => {
+      this.product = res.map(val => {
+        return {
+          ...val, productDesc: null
+        }
 
-    }));
+
+
+      })
+      console.log(this.product);
+
+    });
     this.service.getCustomer().subscribe(res => {
 
       this.customerList = res.map(val => {
@@ -67,11 +73,15 @@ export class AddEditComponent implements OnInit {
 
         this.service.editOrder(data).subscribe(res => {
           // console.log(res)
+          this.resetForm();
+          window.alert('แก้ไขข้อมูลเรียบร้อย');
         }
         );
       } else {
         this.service.addOrder(data).subscribe(res => {
           // console.log(res);
+          this.orderForm.reset();
+          window.alert('บันทึกข้อมูลเรียบร้อย');
         });
       }
 
